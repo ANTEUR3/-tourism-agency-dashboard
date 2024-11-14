@@ -17,6 +17,9 @@ import TicketsGraphe from "./TicketsGraphe";
 import MonthsGraphe from "./monthsGraphe";
 import EmployeeGraphe from "./employeeGraphe";
 import { useState } from "react";
+import UpdateVol from "./UpdateVol";
+import DeleteTicket from "./DeleteTicket";
+import NewTicket from "./newTicket";
 export default function  Functionalities()
 
 {
@@ -62,6 +65,9 @@ export default function  Functionalities()
         <Route path={'/MonthsTickets'} element={<MonthsGraphe/>} />
         <Route path={'/EmployeesGraphe'} element={<EmployeeGraphe/>} />
         <Route path={'/TicketsGraphe'} element={<TicketsGraphe/>} />
+        <Route path={'/Ticket/:id/update'} element={<UpdateVol/>} />
+        <Route path={'/Ticket/:id/delete'} element={<DeleteTicket/>} />
+        <Route path={'/Ticket/new'} element={<NewTicket/>} />
     </Routes>
     
     </BrowserRouter>

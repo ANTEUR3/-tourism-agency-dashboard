@@ -9,27 +9,16 @@ import Vols from './pages/vols';
 export const abc_voyage =createContext({
   vols:[],
   employees:[],
-  Lessons:[],
+  updateVol:()=>null,
+  deleteTicket:()=>null,
+  addTicket:()=>null,
   id:0,
   
-
-
 });
 
 function App() {
 
-  const[vols,setVols]=useState([{Departure_city:'Alger',city_of_arrival:'Paris',price:350,date:'15-07-2023',time:'15H:30min',sales_rat:20},
-  {Departure_city:'Oran',city_of_arrival:'Toulouse',price:315,date:'15-07-2024',time:'14H:00min',sales_rat:10.68},
-  {Departure_city:'Alger',city_of_arrival:'Lyon',price:400,date:'15-06-2024',time:'06H:30min',sales_rat:67},
-  {Departure_city:'Chlef',city_of_arrival:'Marseille',price:350,date:'22-05-2024',time:'00H:00min',sales_rat:88},
-  {Departure_city:'Oran',city_of_arrival:'Madrid',price:350,date:'10-06-2024',time:'15H:30min',sales_rat:91},
-  {Departure_city:'Oran',city_of_arrival:'valencia',price:350,date:'10-06-2024',time:'15H:30min',sales_rat:91},
-  {Departure_city:'alger',city_of_arrival:'Berlin',price:350,date:'10-07-2024',time:'18H:30min',sales_rat:80},
-  {Departure_city:'alger',city_of_arrival:'Montreal',price:350,date:'20-06-2024',time:'13H:45min',sales_rat:99},
-  {Departure_city:'Setif',city_of_arrival:'Marseille',price:350,date:'13-06-2024',time:'10H:30min',sales_rat:93},
-  {Departure_city:'Alger',city_of_arrival:'Toulouse',price:370,date:'08-07-2024',time:' 19H:30min',sales_rat:42},
-  {Departure_city:'Oran',city_of_arrival:'Marseille',price:420,date:'30-06-2024',time:'09H:30min',sales_rat:64},
-  {Departure_city:'Setif',city_of_arrival:'Rome',price:550,date:'20-07-2024',time:'11H:30min',sales_rat:70},
+  const[vols,setVols]=useState([
 ]);
   const[id,setId]=useState(1);
   const[employees,setEmployees]=useState([{familyName:'Anteur',name:'Mohamed',role:'reservation',Salary:35000},
@@ -57,13 +46,53 @@ function App() {
 
   ]);
 
+
+  const updateVol=(data)=>{
+    const id =data.payload.id;
+    
+    setVols(prevState => prevState.map(vol=>{
+      if(vol.id=== id)
+      {
+        return {id:vol.id ,Departure:vol.Departure,Arrival:vol.Arrival,Date:data.payload.date,Time:data.payload.time,Price:data.payload.price}
+      }
+      return vol;
+    }));
+
+    window.history.back();
+    
+  }
+
+  
+  const deleteTicket=(data)=>{
+    
+    
+    setVols(prevState => prevState.filter(user =>user.id !== parseInt(data.payload.id)));
+
+    window.history.back();
+    
+  }
+
+  const addTicket=(data)=>{
+    
+    
+    setVols(prevState => [...prevState,data.payload]);
+    setId(id+1);
+
+    window.history.back();
+    
+  }
+
+
   return (
     
     <>
 <abc_voyage.Provider value={{
           vols:vols,
           id:id,
-          employees:employees
+          employees:employees,
+          updateVol:updateVol,
+          deleteTicket:deleteTicket,
+          addTicket:addTicket
          
         }}>
              <Functionalities />
